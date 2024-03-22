@@ -42,6 +42,7 @@ def zkp_generate(secret_info: int, ID: int):
     return Proof(encrypted_r, c_int, z)
 
 def zkp_verify(proof: Proof, public_info: field.Point, ID: int):
+    # Read value from received proof
     receive_encrypted_r = proof.encrypted_random
     receive_c = proof.c
     receive_z = proof.z
@@ -61,10 +62,9 @@ fake_info = 344
 public_info = real_info * curve.g
 
 start = time.time()
+
 zkproof_real = zkp_generate(real_info)
 zkproof_fake = zkp_generate(fake_info)
-print(zkproof_real.display())
-print(zkproof_fake.display())
 print(zkp_verify(zkproof_real, public_info))
 print(zkp_verify(zkproof_fake, public_info))
 
